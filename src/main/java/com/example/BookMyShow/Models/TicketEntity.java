@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 
 @Entity
@@ -25,10 +26,20 @@ public class TicketEntity {
 
     private LocalTime showTiming;
 
-    //private List<> bookedSeats;
-
     private LocalDate showDate;
 
     private String theatreName;
+
+    private String ticketId = UUID.randomUUID().toString();
+
+    // This is child wrt to userEntity
+    @ManyToOne
+    @JoinColumn
+    private UserEntity userEntity;
+
+    // This is child wrt showEntity
+    @ManyToOne
+    @JoinColumn
+    private ShowEntity showEntity;
 
 }

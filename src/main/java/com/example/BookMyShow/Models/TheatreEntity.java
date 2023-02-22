@@ -23,15 +23,12 @@ public class TheatreEntity {
 
     private String location;
 
-    // This is parent wrt theatreSeats
+    // This is parent wrt theatreSeatsEntity
     @OneToMany(mappedBy = "theatreEntity", cascade = CascadeType.ALL)
     private List<TheatreSeatEntity> theatreSeatEntityList = new ArrayList<>();
 
-
-
-
-
-
-
+    // This is parent wrt showEntity
+    @OneToMany(mappedBy = "theatreEntity", cascade = CascadeType.ALL)
+    private List<ShowEntity> showEntityList = new ArrayList<>();
 
 }

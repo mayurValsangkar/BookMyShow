@@ -24,9 +24,8 @@ public class TheatreSeatEntity {
 
     private String seatNo;
 
+    // This is child wrt theatreEntity
     @ManyToOne
     @JoinColumn
     private TheatreEntity theatreEntity;
-
-
 }

@@ -3,6 +3,9 @@ package com.example.BookMyShow.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -27,4 +30,8 @@ public class UserEntity {
     private String address;
 
     private int age;
+
+    // This is parent wrt ticketEntity
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<TicketEntity> bookedTickets = new ArrayList<>();
 }

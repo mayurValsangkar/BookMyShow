@@ -28,4 +28,9 @@ public class ShowSeatEntity {
     private SeatType seatType;
 
     private Date bookedAt;
+
+    // This is child wrt showEntity
+    @ManyToOne
+    @JoinColumn
+    private ShowEntity showEntity;
 }
