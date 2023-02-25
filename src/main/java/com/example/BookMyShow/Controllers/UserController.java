@@ -16,9 +16,15 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity addUser(@RequestBody UserEntryDto userEntryDto){
-        userService.addUser(userEntryDto);
-        return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
-    }
+    public ResponseEntity<String> addUser(@RequestBody UserEntryDto userEntryDto){
 
+        try{
+            userService.addUser(userEntryDto);
+        }catch (Exception e){
+            return new ResponseEntity<>("User could not add successfully", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
+
+    }
 }

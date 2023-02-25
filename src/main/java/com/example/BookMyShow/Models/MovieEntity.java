@@ -24,7 +24,7 @@ public class MovieEntity {
     @Column(unique = true, nullable = false)
     private String movieName;
 
-    //private double ratings;
+    private double ratings;
 
     private int duration;
 

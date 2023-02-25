@@ -1,5 +1,6 @@
 package com.example.BookMyShow.Services;
 
+import com.example.BookMyShow.Convertors.UserConvertor;
 import com.example.BookMyShow.DTOS.UserEntryDto;
 import com.example.BookMyShow.Models.UserEntity;
 import com.example.BookMyShow.Repositories.UserRepository;
@@ -12,18 +13,15 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void addUser(UserEntryDto userEntryDto){
+    public void addUser(UserEntryDto userEntryDto) throws Exception{
 
         // This is to set all the attribute in one go.
         // Creating object in smart manner
-        UserEntity userEntity = UserEntity.builder()
-                .age(userEntryDto.getAge())
-                .name(userEntryDto.getName())
-                .address(userEntryDto.getAddress())
-                .email(userEntryDto.getEmail())
-                .mobileNumber(userEntryDto.getMobileNumber())
-                .build();
-
+        UserEntity userEntity = UserConvertor.convertDtoToEntity(userEntryDto);
         userRepository.save(userEntity);
+
+        //return "User added successfully";
     }
+
+
 }
