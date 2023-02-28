@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -27,6 +28,8 @@ public class TicketEntity {
     private LocalTime showTiming;
 
     private LocalDate showDate;
+
+    private String bookedSeats;
 
     private String theatreName;
 

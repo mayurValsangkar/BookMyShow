@@ -26,12 +26,24 @@ public class TheatreService {
     // 2. I need to save theatre : I need theatreEntity
     // 3. Always set the attribute before saving.
 
-    public void addTheatre(TheatreEntryDto theatreEntryDto){
+    public void addTheatre(TheatreEntryDto theatreEntryDto) throws Exception{
 
+        // Do some validation
+        if(theatreEntryDto.getName()==null || theatreEntryDto.getLocation()==null){
+            throw new Exception("Name or location should be valid");
+        }
+
+        // Dto to Entity
         TheatreEntity theatreEntity = TheatreConvertor.convertDtoToEntity(theatreEntryDto);
 
+        // Calling another method of createTheatreSeats
         List<TheatreSeatEntity> theatreSeatEntityList = createTheatreSeats(theatreEntryDto, theatreEntity);
 
+        // Set attribute
+        theatreEntity.setTheatreSeatEntityList(theatreSeatEntityList);
+
+        // Save in repository
+        theatreRepository.save(theatreEntity);
     }
 
     private List<TheatreSeatEntity> createTheatreSeats(TheatreEntryDto theatreEntryDto, TheatreEntity theatreEntity) {
@@ -41,26 +53,36 @@ public class TheatreService {
 
         List<TheatreSeatEntity> theatreSeatEntityList = new ArrayList<>();
 
+        // Create classic(Silver) seats
         for(int count = 1; count <= noClassicSeats;count++){
 
             // We need to make a new TheatreSeatEntity
-
             TheatreSeatEntity theatreSeatEntity = TheatreSeatEntity.builder()
-                    .seatType(SeatType.SILVER).seatNo(String.valueOf(count+"S")).theatreEntity(theatreEntity).build();
+                    .seatType(SeatType.SILVER)
+                    .seatNo(String.valueOf(count+"S"))
+                    .theatreEntity(theatreEntity)
+                    .build();
 
+            // Add in the list
             theatreSeatEntityList.add(theatreSeatEntity);
         }
 
-        // Create premium seats
+        // Create (premium)Gold seats
         for(int count = 1; count <= noPremiumSeats; count++){
 
-            TheatreSeatEntity theatreSeatEntity = TheatreSeatEntity.builder().
-                    seatType(SeatType.GOLD).seatNo(String.valueOf(count+"G")).theatreEntity(theatreEntity).build();
+            // We need to make a new TheatreSeatEntity
+            TheatreSeatEntity theatreSeatEntity = TheatreSeatEntity.builder()
+                    .seatType(SeatType.GOLD)
+                    .seatNo(String.valueOf(count+"G"))
+                    .theatreEntity(theatreEntity)
+                    .build();
 
+            // Add in the list
             theatreSeatEntityList.add(theatreSeatEntity);
         }
 
-        theatreSeatRepository.saveAll(theatreSeatEntityList);
+        // Not saving child here
+        //theatreSeatRepository.saveAll(theatreSeatEntityList);
 
         return theatreSeatEntityList;
     }

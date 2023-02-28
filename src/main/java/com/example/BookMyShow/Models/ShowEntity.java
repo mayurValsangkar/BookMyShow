@@ -3,7 +3,6 @@ package com.example.BookMyShow.Models;
 
 import com.example.BookMyShow.Enums.ShowType;
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,7 +25,6 @@ public class ShowEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Timestamp(value = "")
     private LocalDate showDate;
 
     private LocalTime showTime;
@@ -52,9 +50,10 @@ public class ShowEntity {
 
     // This is parent wrt ticketEntity
     @OneToMany(mappedBy = "showEntity", cascade = CascadeType.ALL)
-    private List<TicketEntity> ticketEntityList = new ArrayList<>();
+    private List<TicketEntity> listOfBookedTickets = new ArrayList<>();
 
     // This is parent wrt showSeatEntity
     @OneToMany(mappedBy = "showEntity", cascade = CascadeType.ALL)
-    private List<ShowSeatEntity> showSeatEntityList = new ArrayList<>();
+    private List<ShowSeatEntity> listOfShowSeats = new ArrayList<>();
+
 }
