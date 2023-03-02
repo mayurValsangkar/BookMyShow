@@ -1,14 +1,13 @@
 package com.example.BookMyShow.Controllers;
 
 import com.example.BookMyShow.DTOS.MovieEntryDto;
+import com.example.BookMyShow.Models.MovieEntity;
+import com.example.BookMyShow.ResponseDto.MovieResponseDto;
 import com.example.BookMyShow.Services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/movies")
@@ -27,5 +26,18 @@ public class MovieController {
         }
 
         return new ResponseEntity<>("Movie added successfully", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get-movie")
+    public ResponseEntity<MovieResponseDto> getMovieById(@RequestParam("id") Integer id) {
+
+        MovieResponseDto movieResponseDto = movieService.findMovie(id);
+//        try {
+//            movieResponseDto = movieService.findMovie(id);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+
+        return new ResponseEntity<>(movieResponseDto, HttpStatus.ACCEPTED);
     }
 }

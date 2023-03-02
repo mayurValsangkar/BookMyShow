@@ -108,7 +108,7 @@ public class TicketService {
         userRepository.save(userEntity);
 
 
-        String body = "Hi this is to confirm your booking for seat No "+allocatedSeats +" for the movie : " + ticketEntity.getMovieName();
+        String body = "Hi "+userEntity.getName()+" !"+" this is to confirm your booking for seat No "+allocatedSeats +" for the movie : " + ticketEntity.getMovieName();
 
 
         MimeMessage mimeMessage=javaMailSender.createMimeMessage();
