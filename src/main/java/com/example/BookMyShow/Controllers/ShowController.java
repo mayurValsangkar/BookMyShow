@@ -18,7 +18,7 @@ public class ShowController {
     ShowService showService;
 
     @PostMapping("/add")
-    public ResponseEntity addShow(@RequestBody ShowEntryDto showEntryDto){
+    public ResponseEntity<String> addShow(@RequestBody ShowEntryDto showEntryDto){
 
         try {
             showService.addShow(showEntryDto);

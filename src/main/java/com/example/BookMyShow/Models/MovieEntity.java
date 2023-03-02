@@ -3,9 +3,13 @@ package com.example.BookMyShow.Models;
 
 import com.example.BookMyShow.Enums.Genre;
 import com.example.BookMyShow.Enums.Language;
-import jakarta.persistence.*;
-import lombok.*;
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 

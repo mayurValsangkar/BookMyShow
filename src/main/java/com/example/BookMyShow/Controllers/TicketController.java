@@ -18,7 +18,7 @@ public class TicketController {
     TicketService ticketService;
 
     @PostMapping("/book")
-    public ResponseEntity bookTicket(@RequestBody TicketEntryDto ticketEntryDto){
+    public ResponseEntity<String> bookTicket(@RequestBody TicketEntryDto ticketEntryDto){
 
         try {
             ticketService.bookTicket(ticketEntryDto);
@@ -28,5 +28,4 @@ public class TicketController {
 
         return new ResponseEntity<>("Ticket booked successfully", HttpStatus.CREATED);
     }
-
 }

@@ -17,6 +17,9 @@ import java.util.List;
 public class ShowService {
 
     @Autowired
+    ShowRepository showRepository;
+
+    @Autowired
     MovieRepository movieRepository;
 
     @Autowired
@@ -40,17 +43,17 @@ public class ShowService {
 
         // pending attribute the listOfShowSeatsEntity
         List<ShowSeatEntity> showSeatEntityList = createShowSeatEntity(showEntryDto, showEntity);
+        showEntity.setListOfShowSeats(showSeatEntityList);
+
 
         // Now we also need to update the parent entities
+        // To avoid duplicate entry, we are saving show entity
+        showEntity = showRepository.save(showEntity);
 
-        List<ShowEntity> showEntityList = movieEntity.getShowEntityList();
-        showEntityList.add(showEntity);
-        movieEntity.setShowEntityList(showEntityList);
+        movieEntity.getShowEntityList().add(showEntity);
+        theatreEntity.getShowEntityList().add(showEntity);
+
         movieRepository.save(movieEntity);
-
-        List<ShowEntity> showEntities = theatreEntity.getShowEntityList();
-        showEntities.add(showEntity);
-        theatreEntity.setShowEntityList(showEntities);
         theatreRepository.save(theatreEntity);
     }
 

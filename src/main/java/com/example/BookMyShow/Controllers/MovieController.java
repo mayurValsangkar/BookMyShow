@@ -18,7 +18,7 @@ public class MovieController {
     MovieService movieService;
 
     @PostMapping("/add")
-    public ResponseEntity addMovie(@RequestBody MovieEntryDto movieEntryDto){
+    public ResponseEntity<String> addMovie(@RequestBody MovieEntryDto movieEntryDto){
 
         try {
             movieService.addMovie(movieEntryDto);

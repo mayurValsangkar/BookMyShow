@@ -18,7 +18,7 @@ public class TheatreController {
     TheatreService theatreService;
 
     @PostMapping("/add")
-    public ResponseEntity addTheatre(@RequestBody TheatreEntryDto theatreEntryDto){
+    public ResponseEntity<String> addTheatre(@RequestBody TheatreEntryDto theatreEntryDto){
 
         try {
             theatreService.addTheatre(theatreEntryDto);

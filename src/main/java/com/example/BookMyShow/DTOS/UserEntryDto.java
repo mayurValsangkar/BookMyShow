@@ -1,6 +1,6 @@
 package com.example.BookMyShow.DTOS;
 
-import jakarta.persistence.Column;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data

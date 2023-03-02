@@ -11,8 +11,11 @@ import com.example.BookMyShow.Repositories.ShowRepository;
 import com.example.BookMyShow.Repositories.TicketRepository;
 import com.example.BookMyShow.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +32,9 @@ public class TicketService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    JavaMailSender javaMailSender;
+
     public void bookTicket(TicketEntryDto ticketEntryDto) throws Exception{
 
 
@@ -43,6 +49,7 @@ public class TicketService {
 
         ShowEntity showEntity = showRepository.findById(ticketEntryDto.getShowId()).get();
 
+        // Get the list of show Seats entity
         List<ShowSeatEntity> seatEntityList = showEntity.getListOfShowSeats();
 
         // List of seats that we need to book
@@ -82,6 +89,11 @@ public class TicketService {
         ticketEntity.setUserEntity(userEntity);
         ticketEntity.setShowEntity(showEntity);
 
+
+        // Save the parent
+        ticketEntity = ticketRepository.save(ticketEntity);
+
+
         // Save the parent(ShowEntity)
         List<TicketEntity> ticketEntityList = showEntity.getListOfBookedTickets();
         ticketEntityList.add(ticketEntity);
@@ -94,6 +106,19 @@ public class TicketService {
         ticketEntityList1.add(ticketEntity);
         userEntity.setBookedTickets(ticketEntityList1);
         userRepository.save(userEntity);
+
+
+        String body = "Hi this is to confirm your booking for seat No "+allocatedSeats +" for the movie : " + ticketEntity.getMovieName();
+
+
+        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
+        mimeMessageHelper.setFrom("backendteam27@gmail.com");
+        mimeMessageHelper.setTo(userEntity.getEmail());
+        mimeMessageHelper.setText(body);
+        mimeMessageHelper.setSubject("Confirming your booked Ticket");
+
+        javaMailSender.send(mimeMessage);
 
     }
 
