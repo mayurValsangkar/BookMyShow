@@ -31,6 +31,8 @@ public class UserEntity {
 
     private int age;
 
+    private String password;
+
     // This is parent wrt ticketEntity
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<TicketEntity> bookedTickets = new ArrayList<>();

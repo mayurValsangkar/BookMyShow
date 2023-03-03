@@ -10,6 +10,7 @@ import com.example.BookMyShow.Repositories.TheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,5 +89,29 @@ public class ShowService {
         }
 
         return seatEntityList;
+    }
+
+    public List<LocalTime> findShowTime(Integer theatreId, Integer movieId) throws Exception{
+
+        TheatreEntity theatre = theatreRepository.findById(theatreId).get();
+
+        MovieEntity movieEntity = movieRepository.findById(movieId).get();
+
+        List<ShowEntity> showEntityList = theatre.getShowEntityList();
+
+        List<LocalTime> showTimeList = new ArrayList<>();
+        for(ShowEntity showEntity : showEntityList){
+            MovieEntity movieEntity1 = showEntity.getMovieEntity();
+
+            if(movieEntity1.equals(movieEntity)){
+                showTimeList.add(showEntity.getShowTime());
+            }
+        }
+
+        if(showTimeList.isEmpty()){
+            throw new Exception("Show of "+movieEntity.getMovieName()+" is not currently playing in "+theatre.getName() +" "+theatre.getLocation());
+        }
+
+        return showTimeList;
     }
 }

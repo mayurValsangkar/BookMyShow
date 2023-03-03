@@ -22,5 +22,4 @@ public class MovieResponseDto {
 
     private Genre genre;
 
-    //private List<ShowEntity> showEntityList = new ArrayList<>();
 }

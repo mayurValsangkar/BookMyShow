@@ -15,4 +15,6 @@ public class UserEntryDto {
     private String address;
 
     private int age;
+
+    private String password;
 }

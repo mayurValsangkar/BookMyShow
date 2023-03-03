@@ -1,12 +1,17 @@
 package com.example.BookMyShow.Services;
 
+import com.example.BookMyShow.Convertors.MovieConvertor;
 import com.example.BookMyShow.Convertors.TheatreConvertor;
 import com.example.BookMyShow.DTOS.TheatreEntryDto;
 import com.example.BookMyShow.Enums.SeatType;
+import com.example.BookMyShow.Models.MovieEntity;
+import com.example.BookMyShow.Models.ShowEntity;
 import com.example.BookMyShow.Models.TheatreEntity;
 import com.example.BookMyShow.Models.TheatreSeatEntity;
 import com.example.BookMyShow.Repositories.TheatreRepository;
 import com.example.BookMyShow.Repositories.TheatreSeatRepository;
+import com.example.BookMyShow.ResponseDto.MovieResponseDto;
+import com.example.BookMyShow.ResponseDto.TheatreResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,5 +90,44 @@ public class TheatreService {
         //theatreSeatRepository.saveAll(theatreSeatEntityList);
 
         return theatreSeatEntityList;
+    }
+
+    public List<TheatreResponseDto> findAllTheatres(){
+
+        List<TheatreEntity> theatreEntityList = theatreRepository.findAll();
+
+        List<TheatreResponseDto> theatreResponseDtoList = new ArrayList<>();
+        for (TheatreEntity theatreEntity : theatreEntityList){
+
+            TheatreResponseDto theatreResponseDto = TheatreConvertor.covertEntityToDto(theatreEntity);
+
+            theatreResponseDtoList.add(theatreResponseDto);
+        }
+
+        return theatreResponseDtoList;
+    }
+
+    public List<MovieResponseDto> findAllMoviesFromTheatre(Integer id) throws Exception{
+
+        TheatreEntity theatreEntity = theatreRepository.findById(id).get();
+
+        if(theatreEntity==null){
+            throw new Exception("Theatre not found");
+        }
+
+        List<ShowEntity> showEntityList = theatreEntity.getShowEntityList();
+
+        List<MovieResponseDto> movieResponseDtoList = new ArrayList<>();
+
+        for (ShowEntity showEntity : showEntityList){
+
+            MovieEntity movieEntity = showEntity.getMovieEntity();
+
+            MovieResponseDto movieResponseDto = MovieConvertor.convertEntityToDto(movieEntity);
+
+            movieResponseDtoList.add(movieResponseDto);
+        }
+
+        return movieResponseDtoList;
     }
 }
