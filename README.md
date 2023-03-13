@@ -1,5 +1,9 @@
 #Book My Show
-Book My Show is a web application for booking movie tickets online. It provides users with the convenience of browsing movies, selecting show timings, and booking tickets from the comfort of their homes.
+Book My Show is a web application for booking movie tickets online. It provides users with the convenience of browsing movies, selecting show timings, and booking
+tickets from the comfort of their homes.
+
+
+https://user-images.githubusercontent.com/49154257/224781430-2f412e93-6606-4a54-9f5f-a46d548ec75b.jpg
 
 Features: 
 Browse movies and view their details,
