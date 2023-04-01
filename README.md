@@ -1,4 +1,4 @@
-<h4>Book My Show</h4>
+<h1>Book My Show</h1>
 Book My Show is a web application for booking movie tickets online. It provides users with the convenience of browsing movies, selecting show timings, and booking
 tickets from the comfort of their homes.
 
