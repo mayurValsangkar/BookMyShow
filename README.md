@@ -1,4 +1,4 @@
-#Book My Show
+<h4>Book My Show</h4>
 Book My Show is a web application for booking movie tickets online. It provides users with the convenience of browsing movies, selecting show timings, and booking
 tickets from the comfort of their homes.
 
@@ -42,7 +42,7 @@ Copy code
 mvn spring-boot:run
 This will start the application on localhost:8888.
 
-To view the Swagger UI documentation, navigate to localhost:8888/swagger-ui.html.
+To view the Swagger UI documentation, navigate to http://localhost:8888/swagger-ui/index.html
 
 Contributors:
 Mayur
